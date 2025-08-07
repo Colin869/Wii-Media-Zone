@@ -1,0 +1,86 @@
+name: Build Wii Homebrew Applications
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Install devkitPPC
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
+        
+        # Download and install devkitPPC
+        wget https://github.com/devkitPro/pacman/releases/latest/download/devkitpro-pacman-installer.sh
+        chmod +x devkitpro-pacman-installer.sh
+        sudo ./devkitpro-pacman-installer.sh
+        
+        # Install required packages
+        sudo dkp-pacman -S devkitPPC libogc libfat
+        
+    - name: Set up environment
+      run: |
+        echo "DEVKITPRO=/opt/devkitpro" >> $GITHUB_ENV
+        echo "DEVKITPPC=/opt/devkitpro/devkitPPC" >> $GITHUB_ENV
+        echo "PATH=/opt/devkitpro/devkitPPC/bin:$PATH" >> $GITHUB_ENV
+        
+    - name: Build HelloWii
+      run: |
+        cd apps/HelloWii
+        make clean
+        make
+        
+    - name: Build WiiMediaPlayer
+      run: |
+        cd apps/WiiMediaPlayer
+        make clean
+        make
+        
+    - name: Build WiiMediaPlayerChannel
+      run: |
+        cd apps/WiiMediaPlayerChannel
+        make clean
+        make
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: wii-homebrew-builds
+        path: |
+          apps/HelloWii/*.dol
+          apps/WiiMediaPlayer/*.dol
+          apps/WiiMediaPlayerChannel/build/*.dol
+        retention-days: 30
+        
+    - name: Create release assets
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      run: |
+        mkdir -p release-assets
+        
+        # Copy built applications
+        cp apps/HelloWii/*.dol release-assets/HelloWii.dol
+        cp apps/WiiMediaPlayer/*.dol release-assets/WiiMediaPlayer.dol
+        cp apps/WiiMediaPlayerChannel/build/*.dol release-assets/WiiMediaPlayerChannel.dol
+        
+        # Create zip files for easy distribution
+        cd release-assets
+        zip -r HelloWii.zip HelloWii.dol
+        zip -r WiiMediaPlayer.zip WiiMediaPlayer.dol
+        zip -r WiiMediaPlayerChannel.zip WiiMediaPlayerChannel.dol
+        
+    - name: Upload release assets
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-assets
+        path: release-assets/
+        retention-days: 30
