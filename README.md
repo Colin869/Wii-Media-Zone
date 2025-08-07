@@ -9,8 +9,7 @@ This repository contains several Wii homebrew applications:
 ### 🎵 WiiMediaPlayer
 A comprehensive media player supporting video and audio playback with advanced features like M3U playlists, video effects, and bookmarks.
 
-### 🎨 WiiMPC (Wii Mii Pants Changer)
-A specialized application for customizing Mii character pants colors with 16 different color options and real-time preview.
+
 
 ### 👋 HelloWii
 A simple "Hello World" style application demonstrating basic Wii homebrew development concepts.
@@ -32,11 +31,7 @@ A Wii System Menu channel version of the media player for easy access.
 
 ## 🎮 Controls
 
-### WiiMPC Controls
-- **D-Pad**: Navigate menus and color grid
-- **A Button**: Select/confirm
-- **B Button**: Go back/cancel
-- **HOME**: Return to Wii menu
+
 
 ### WiiMediaPlayer Controls
 - **D-Pad**: Navigate file browser and menus
@@ -48,12 +43,7 @@ A Wii System Menu channel version of the media player for easy access.
 
 ## 🌟 Key Features
 
-### WiiMPC Features
-- **16 Color Options**: Red, Orange, Yellow, Lime, Green, Teal, Cyan, Blue, Navy, Purple, Magenta, Pink, Brown, Maroon, Olive, Gray
-- **Real-time Preview**: See changes before saving
-- **Before/After Comparison**: Side-by-side view
-- **Japanese Support**: Full Japanese Wii compatibility
-- **Safe Operations**: Backup original Mii data
+
 
 ### WiiMediaPlayer Features
 - **Video & Audio Support**: Multiple format playback
@@ -79,12 +69,11 @@ git clone https://github.com/Colin869/Wii-Media-Zone.git
 cd Wii-Media-Zone
 
 # Build specific application
-cd apps/WiiMPC
+cd apps/WiiMediaPlayer
 make
 
 # Or build all applications
 cd ..
-make -C apps/WiiMPC
 make -C apps/WiiMediaPlayer
 make -C apps/HelloWii
 ```
@@ -105,7 +94,7 @@ Each application includes detailed documentation:
 ## 🔗 Links
 
 - **GitHub Repository**: https://github.com/Colin869/Wii-Media-Zone
-- **WiiMPC Repository**: https://github.com/Colin869/WiiMPC
+
 - **Homebrew Channel**: https://hbc.hackmii.com/
 - **devkitPro**: https://devkitpro.org/
 
