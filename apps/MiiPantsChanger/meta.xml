@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="1.0">
+  <name>Mii Pants Changer</name>
+  <coder>Colin869</coder>
+  <version>1.0</version>
+  <release_date>20241201000000</release_date>
+  <short_description>Mii Pants Color Changer</short_description>
+  <long_description>A homebrew application that allows you to change the pants colors of your Mii characters. Customize your Miis with colors not available in the standard Wii Mii Channel.</long_description>
+  <ahb_access/>
+</app>
