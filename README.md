@@ -1,162 +1,122 @@
 # Wii Media Zone 🎮
-
+       
 A comprehensive collection of Nintendo Wii homebrew applications and tools focused on media playback and entertainment.
-
+       
 ## 📁 Project Overview
 
-This repository contains several Wii homebrew applications and development tools:
+This repository contains several Wii homebrew applications:
 
-### 🎵 Applications
+### 🎵 WiiMediaPlayer
+A comprehensive media player supporting video and audio playback with advanced features like M3U playlists, video effects, and bookmarks.
 
-#### 1. **HelloWii** - Basic Homebrew Example
-- **Location**: `apps/HelloWii/`
-- **Description**: A simple "Hello World" style homebrew application demonstrating basic Wii development concepts
-- **Features**: Graphics rendering, Wii Remote input handling, console output
-- **Perfect for**: Learning Wii homebrew development basics
+### 🎨 WiiMPC (Wii Mii Pants Changer)
+A specialized application for customizing Mii character pants colors with 16 different color options and real-time preview.
 
-#### 2. **WiiMediaPlayer** - Advanced Media Player
-- **Location**: `apps/WiiMediaPlayer/`
-- **Description**: A comprehensive media player supporting video and audio playback
-- **Features**:
-  - 🎬 Video and audio playback
-  - 📁 File browser with thumbnails
-  - 📋 M3U/M3U8 playlist support
-  - 🎨 Advanced video effects and filters
-  - 🔖 Bookmark system
-  - ⚙️ Customizable playback settings
-  - 🎯 Japanese Wii region support
-  - 🎮 Enhanced Wii Remote controls
+### 👋 HelloWii
+A simple "Hello World" style application demonstrating basic Wii homebrew development concepts.
 
-#### 3. **WiiMediaPlayerChannel** - Wii Menu Channel
-- **Location**: `apps/WiiMediaPlayerChannel/`
-- **Description**: A Wii System Menu channel version of the media player
-- **Features**:
-  - 🏠 Direct access from Wii menu
-  - 🇯🇵 Japanese region compatibility
-  - 🎨 Custom channel banner and icon
-  - 📦 WAD installation ready
-
-### 🛠️ Tools Included
-
-- **CustomizeMii.exe** - Channel creation and customization tool
-- **ShowMiiWads.exe** - WAD file management tool
-- **WIT (Wii ISO Tools)** - Wii ISO and WAD manipulation
-- **Various utilities** for Wii development and file management
+### 📺 WiiMediaPlayerChannel
+A Wii System Menu channel version of the media player for easy access.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **devkitPPC** - PowerPC development kit
-- **libogc** - Wii development library
-- **A Wii with homebrew channel** - To run the applications
-
-### Building Applications
-
-#### HelloWii
-```bash
-cd apps/HelloWii
-make
-```
-
-#### WiiMediaPlayer
-```bash
-cd apps/WiiMediaPlayer
-make
-```
-
-#### WiiMediaPlayerChannel
-```bash
-cd apps/WiiMediaPlayerChannel
-./build_channel.bat  # Windows
-./build_channel.sh   # Linux/Mac
-```
+- **Wii with Homebrew Channel** installed
+- **SD Card** with apps folder
+- **devkitPPC** (for building from source)
 
 ### Installation
-
-1. **Copy the .dol file** to your SD card in the `apps/` directory
-2. **Run from Homebrew Channel** on your Wii
-3. **For the channel version**: Install the WAD file using a WAD manager
+1. **Download** the desired `.dol` files from releases
+2. **Copy** to `SD:/apps/[ApplicationName]/`
+3. **Run** from Homebrew Channel
 
 ## 🎮 Controls
 
-### WiiMediaPlayer Controls
-- **D-Pad**: Navigate menus
-- **A Button**: Select/Play
-- **B Button**: Back/Stop
-- **+/-**: Volume control
-- **1/2**: Screenshot/Slow motion
-- **Z/C**: Bookmark/Fast forward
+### WiiMPC Controls
+- **D-Pad**: Navigate menus and color grid
+- **A Button**: Select/confirm
+- **B Button**: Go back/cancel
 - **HOME**: Return to Wii menu
+
+### WiiMediaPlayer Controls
+- **D-Pad**: Navigate file browser and menus
+- **A Button**: Play/pause, select
+- **B Button**: Stop, go back
+- **+/-**: Volume control
+- **1/2**: Bookmark, screenshot
+- **Z/C**: Slow motion, fast forward
 
 ## 🌟 Key Features
 
-### Advanced Media Playback
-- **Multi-format support**: MP3, WAV, OGG, MP4, AVI, MKV
-- **Playlist management**: Create, edit, and organize playlists
-- **Video effects**: Brightness, contrast, saturation, gamma, filters
-- **Bookmark system**: Save and jump to specific positions
-- **Enhanced controls**: Variable speed, frame stepping, reverse playback
+### WiiMPC Features
+- **16 Color Options**: Red, Orange, Yellow, Lime, Green, Teal, Cyan, Blue, Navy, Purple, Magenta, Pink, Brown, Maroon, Olive, Gray
+- **Real-time Preview**: See changes before saving
+- **Before/After Comparison**: Side-by-side view
+- **Japanese Support**: Full Japanese Wii compatibility
+- **Safe Operations**: Backup original Mii data
 
-### Japanese Wii Support
-- **Region detection**: Automatically detects Japanese Wii
-- **Japanese UI**: Displays Japanese text when appropriate
-- **Japanese filenames**: Full support for Japanese file names
-- **Localized messages**: Japanese system messages
+### WiiMediaPlayer Features
+- **Video & Audio Support**: Multiple format playback
+- **M3U Playlist Support**: Load and manage playlists
+- **Video Effects**: Brightness, contrast, saturation, filters
+- **Bookmark System**: Save and jump to positions
+- **Advanced Controls**: Variable speed, frame stepping
 
-### Development Features
-- **Modular design**: Clean, maintainable code structure
-- **Comprehensive documentation**: Detailed guides and READMEs
-- **Build automation**: Scripts for easy compilation
-- **Cross-platform**: Works on Windows, Linux, and Mac
+## 🇯🇵 Japanese Wii Support
+
+All applications include full Japanese Wii compatibility:
+- **Region Detection**: Automatic Japanese Wii detection
+- **Japanese UI**: Localized interface text
+- **Japanese Filenames**: Support for Japanese characters
+- **Japanese Playlists**: M3U files with Japanese metadata
+
+## 🛠️ Development
+
+### Building from Source
+```bash
+# Clone the repository
+git clone https://github.com/Colin869/Wii-Media-Zone.git
+cd Wii-Media-Zone
+
+# Build specific application
+cd apps/WiiMPC
+make
+
+# Or build all applications
+cd ..
+make -C apps/WiiMPC
+make -C apps/WiiMediaPlayer
+make -C apps/HelloWii
+```
+
+### Requirements
+- **devkitPPC**: PowerPC development kit
+- **libogc**: Wii development library
+- **libfat**: FAT filesystem support
 
 ## 📚 Documentation
 
-Each application has its own detailed documentation:
-
-- [HelloWii Documentation](apps/HelloWii/README.md)
-- [WiiMediaPlayer Documentation](apps/WiiMediaPlayer/README.md)
-- [WiiMediaPlayerChannel Documentation](apps/WiiMediaPlayerChannel/README.md)
-- [Japanese Wii Guide](apps/WiiMediaPlayerChannel/JAPANESE_WII_GUIDE.md)
-
-## 🔧 Development
-
-### Project Structure
-```
-Wii Media Zone/
-├── apps/
-│   ├── HelloWii/              # Basic homebrew example
-│   ├── WiiMediaPlayer/        # Advanced media player
-│   └── WiiMediaPlayerChannel/ # Wii menu channel
-├── external/                  # External tools and libraries
-├── Tools/                     # Wii development utilities
-└── README.md                  # This file
-```
-
-### Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly on a Wii
-5. Submit a pull request
-
-## 📄 License
-
-This project is open source. Please check individual application directories for specific license information.
-
-## 🙏 Acknowledgments
-
-- **devkitPro team** - For the excellent Wii development tools
-- **libogc developers** - For the Wii development library
-- **Wii homebrew community** - For inspiration and support
+Each application includes detailed documentation:
+- **README.md**: Usage guide and features
+- **Controls**: Detailed control schemes
+- **Installation**: Step-by-step setup
+- **Troubleshooting**: Common issues and solutions
 
 ## 🔗 Links
 
 - **GitHub Repository**: https://github.com/Colin869/Wii-Media-Zone
+- **WiiMPC Repository**: https://github.com/Colin869/WiiMPC
+- **Homebrew Channel**: https://hbc.hackmii.com/
 - **devkitPro**: https://devkitpro.org/
-- **Wii Homebrew Community**: Various forums and Discord servers
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ---
 
-**Made with ❤️ for the Wii homebrew community**
-
-*Enjoy your media on the Nintendo Wii! 🎮*
+**Note**: These applications are for educational and personal use only. Please ensure you comply with all applicable laws and Nintendo's terms of service.

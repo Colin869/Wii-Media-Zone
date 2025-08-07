@@ -82,6 +82,17 @@ jobs:
         make clean || echo "Clean failed (this is OK for first build)"
         make
         
+    - name: Build WiiMPC
+      run: |
+        export DEVKITPRO=/opt/devkitpro
+        export DEVKITPPC=/opt/devkitpro/devkitPPC
+        export PATH=/opt/devkitpro/devkitPPC/bin:$PATH
+        
+        cd apps/WiiMPC
+        echo "Building WiiMPC..."
+        make clean || echo "Clean failed (this is OK for first build)"
+        make
+        
     - name: List build artifacts
       run: |
         echo "=== Build Artifacts ==="
@@ -97,6 +108,7 @@ jobs:
           apps/HelloWii/*.dol
           apps/WiiMediaPlayer/*.dol
           apps/WiiMediaPlayerChannel/build/*.dol
+          apps/WiiMPC/*.dol
         retention-days: 30
         if-no-files-found: warn
         
@@ -116,6 +128,10 @@ jobs:
         
         if [ -f apps/WiiMediaPlayerChannel/build/*.dol ]; then
           cp apps/WiiMediaPlayerChannel/build/*.dol release-assets/WiiMediaPlayerChannel.dol
+        fi
+        
+        if [ -f apps/WiiMPC/*.dol ]; then
+          cp apps/WiiMPC/*.dol release-assets/WiiMPC.dol
         fi
         
         # Create zip files for easy distribution
