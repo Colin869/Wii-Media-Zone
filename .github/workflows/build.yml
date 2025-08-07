@@ -14,42 +14,80 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       
-    - name: Install devkitPPC
+    - name: Install system dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget unzip
+        sudo apt-get install -y wget unzip build-essential gcc g++ make cmake
         
-        # Download and install devkitPPC
+    - name: Install devkitPro
+      run: |
+        # Download and install devkitPro pacman
         wget https://github.com/devkitPro/pacman/releases/latest/download/devkitpro-pacman-installer.sh
         chmod +x devkitpro-pacman-installer.sh
         sudo ./devkitpro-pacman-installer.sh
         
+        # Add devkitPro to PATH
+        echo 'export DEVKITPRO=/opt/devkitpro' >> $GITHUB_ENV
+        echo 'export DEVKITPPC=/opt/devkitpro/devkitPPC' >> $GITHUB_ENV
+        echo 'export PATH=/opt/devkitpro/devkitPPC/bin:$PATH' >> $GITHUB_ENV
+        
         # Install required packages
-        sudo dkp-pacman -S devkitPPC libogc libfat
+        sudo dkp-pacman -S --noconfirm devkitPPC libogc libfat
         
     - name: Set up environment
       run: |
-        echo "DEVKITPRO=/opt/devkitpro" >> $GITHUB_ENV
-        echo "DEVKITPPC=/opt/devkitpro/devkitPPC" >> $GITHUB_ENV
-        echo "PATH=/opt/devkitpro/devkitPPC/bin:$PATH" >> $GITHUB_ENV
+        export DEVKITPRO=/opt/devkitpro
+        export DEVKITPPC=/opt/devkitpro/devkitPPC
+        export PATH=/opt/devkitpro/devkitPPC/bin:$PATH
+        
+        # Verify installation
+        echo "DEVKITPRO: $DEVKITPRO"
+        echo "DEVKITPPC: $DEVKITPPC"
+        echo "PATH: $PATH"
+        
+        # Check if tools are available
+        which powerpc-eabi-gcc || echo "powerpc-eabi-gcc not found"
+        which powerpc-eabi-g++ || echo "powerpc-eabi-g++ not found"
         
     - name: Build HelloWii
       run: |
+        export DEVKITPRO=/opt/devkitpro
+        export DEVKITPPC=/opt/devkitpro/devkitPPC
+        export PATH=/opt/devkitpro/devkitPPC/bin:$PATH
+        
         cd apps/HelloWii
-        make clean
+        echo "Building HelloWii..."
+        make clean || echo "Clean failed (this is OK for first build)"
         make
         
     - name: Build WiiMediaPlayer
       run: |
+        export DEVKITPRO=/opt/devkitpro
+        export DEVKITPPC=/opt/devkitpro/devkitPPC
+        export PATH=/opt/devkitpro/devkitPPC/bin:$PATH
+        
         cd apps/WiiMediaPlayer
-        make clean
+        echo "Building WiiMediaPlayer..."
+        make clean || echo "Clean failed (this is OK for first build)"
         make
         
     - name: Build WiiMediaPlayerChannel
       run: |
+        export DEVKITPRO=/opt/devkitpro
+        export DEVKITPPC=/opt/devkitpro/devkitPPC
+        export PATH=/opt/devkitpro/devkitPPC/bin:$PATH
+        
         cd apps/WiiMediaPlayerChannel
-        make clean
+        echo "Building WiiMediaPlayerChannel..."
+        make clean || echo "Clean failed (this is OK for first build)"
         make
+        
+    - name: List build artifacts
+      run: |
+        echo "=== Build Artifacts ==="
+        find . -name "*.dol" -type f
+        find . -name "*.elf" -type f
+        echo "======================"
         
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
@@ -60,22 +98,33 @@ jobs:
           apps/WiiMediaPlayer/*.dol
           apps/WiiMediaPlayerChannel/build/*.dol
         retention-days: 30
+        if-no-files-found: warn
         
     - name: Create release assets
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
         mkdir -p release-assets
         
-        # Copy built applications
-        cp apps/HelloWii/*.dol release-assets/HelloWii.dol
-        cp apps/WiiMediaPlayer/*.dol release-assets/WiiMediaPlayer.dol
-        cp apps/WiiMediaPlayerChannel/build/*.dol release-assets/WiiMediaPlayerChannel.dol
+        # Copy built applications (with error handling)
+        if [ -f apps/HelloWii/*.dol ]; then
+          cp apps/HelloWii/*.dol release-assets/HelloWii.dol
+        fi
+        
+        if [ -f apps/WiiMediaPlayer/*.dol ]; then
+          cp apps/WiiMediaPlayer/*.dol release-assets/WiiMediaPlayer.dol
+        fi
+        
+        if [ -f apps/WiiMediaPlayerChannel/build/*.dol ]; then
+          cp apps/WiiMediaPlayerChannel/build/*.dol release-assets/WiiMediaPlayerChannel.dol
+        fi
         
         # Create zip files for easy distribution
         cd release-assets
-        zip -r HelloWii.zip HelloWii.dol
-        zip -r WiiMediaPlayer.zip WiiMediaPlayer.dol
-        zip -r WiiMediaPlayerChannel.zip WiiMediaPlayerChannel.dol
+        for dol in *.dol; do
+          if [ -f "$dol" ]; then
+            zip -r "${dol%.dol}.zip" "$dol"
+          fi
+        done
         
     - name: Upload release assets
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
@@ -84,3 +133,4 @@ jobs:
         name: release-assets
         path: release-assets/
         retention-days: 30
+        if-no-files-found: warn
