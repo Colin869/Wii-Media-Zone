@@ -1,0 +1,34 @@
+# Wii Media Player Channel Configuration
+# This file contains the settings for creating the channel WAD
+
+# Channel Information
+TITLE_ID=000100014D454450  # Wii Media Player (MEDP)
+CHANNEL_NAME=Wii Media Player
+CHANNEL_DESCRIPTION=Advanced media player for Wii
+VERSION=1.0
+REGION=JPN
+
+# Content Settings
+CONTENT_TYPE=CHANNEL
+CONTENT_INDEX=0000
+
+# Banner Settings
+BANNER_WIDTH=170
+BANNER_HEIGHT=42
+BANNER_ANIMATION_FRAMES=1
+
+# Icon Settings
+ICON_WIDTH=128
+ICON_HEIGHT=128
+
+# Application Settings
+APP_FILE=00000000.app
+META_FILE=meta.xml
+
+# Security Settings
+SIGNED=YES
+ENCRYPTED=YES
+
+# Installation Settings
+INSTALL_TO_SYSTEM_MENU=YES
+INSTALL_TO_SD_CARD=NO

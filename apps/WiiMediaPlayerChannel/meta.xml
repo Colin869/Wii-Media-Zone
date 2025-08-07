@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="1.0">
+  <name>Wii Media Player</name>
+  <coder>Your Name</coder>
+  <version>1.0</version>
+  <release_date>20241201000000</release_date>
+  <short_description>Wii Media Player Channel</short_description>
+  <long_description>A comprehensive media player channel for the Nintendo Wii supporting video and audio playback with advanced features like playlists, video effects, and bookmarks.</long_description>
+  <ahb_access/>
+  <region>JPN</region>
+</app>

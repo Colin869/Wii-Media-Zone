@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="1.0">
+  <name>Multiboot</name>
+  <coder>Dack</coder>
+  <version>1.0</version>
+  <short_description>Multiboot Wii</short_description> 
+  <long_description>Loads different partitions off a Wii disc. Based on Softchip r82 with multipartition modifications.</long_description> 
+
+</app>
+

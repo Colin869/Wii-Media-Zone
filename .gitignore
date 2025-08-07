@@ -1,0 +1,74 @@
+# Wii Media Zone .gitignore
+
+# Build artifacts
+*.o
+*.elf
+*.dol
+*.map
+build/
+dist/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files
+*.log
+
+# Backup files
+*.backup
+*.old
+
+# WAD files (too large for repository)
+*.wad
+
+# Compiled executables (except tools)
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Keep specific tools
+!CustomizeMii.exe
+!ShowMiiWads.exe
+!*.dll
+!external/wit/wit.exe
+!Tools/*.exe
+
+# Development files
+*.dev
+*.debug
+
+# Test files
+test_*
+*_test.*
+
+# Documentation build
+docs/_build/
+docs/build/
+
+# Package files
+*.zip
+*.tar.gz
+*.rar
+
+# Local configuration
+config.local.*
+.env
